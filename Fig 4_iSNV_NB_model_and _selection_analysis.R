@@ -63,9 +63,9 @@ gene_ref_lengths  <- c(Spike=3822,ORF1a=13218,ORF1b=8085,
                        ORF3a=828,ORF8=366,ORF10=117)
 
 # genome-wide pS 계산용 추가 유전자 (ORF6 포함, ORF8/ORF10 제외)
-GW_GENES_EXTRA   <- c("ORF6")          # genes_of_interest에 없지만 GW pS에 포함
-GW_GENE_LENGTHS  <- c(ORF6=186)
-GW_EXCLUDE       <- c("ORF8","ORF10")  # GW pS 계산에서 제외
+GW_GENES_EXTRA   <- character(0)          # genes_of_interest에 없지만 GW pS에 포함
+GW_GENE_LENGTHS  <- c()
+GW_EXCLUDE       <- c("ORF6","ORF8","ORF10")  # GW pS 계산에서 제외
 
 # ── 전역 색상/모양/레이블 정의 ─────────────────────────────────────────────────
 SET_COLORS    <- c("A"="#c0392b", "B"="#2980b9")
@@ -272,7 +272,8 @@ analyze_set <- function(isnv_file, callable_file, set_name) {
   # GW pS 계산용: 분석 유전자 + ORF6, GW_EXCLUDE 제외, S sheet만 사용
   count_S_gw <- dplyr::bind_rows(
     count_all %>% dplyr::filter(MutType == "S"),
-    count_gw_extra %>% dplyr::filter(MutType == "S")
+    if (!is.null(count_gw_extra) && nrow(count_gw_extra) > 0)
+      count_gw_extra %>% dplyr::filter(MutType == "S") else NULL
   ) %>%
     dplyr::filter(!Gene %in% GW_EXCLUDE)
   
