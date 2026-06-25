@@ -30,7 +30,7 @@ This repository contains a stepwise pipeline for identifying and analyzing intra
 ### Statistical analysis
 
 - iSNV rate and sharing analysis (Fig. 3)  
-  → `Fig 3_iSNV_rate_and_sharing_analysis.R`
+  → `Fig3_code.R`
 
 - Negative binomial modeling and selection analysis (Fig. 4)  
-  → `Fig 4_iSNV_NB_model_and_selection_analysis.R`
+  → `Fig4_code.R`
